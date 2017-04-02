@@ -62,6 +62,7 @@ for (const menuInfo of template) {
     menu.popup(remote.getCurrentWindow(), {
       x, y,
       async: true,
+      forDrop: true,
     })
   })
   menusElem.appendChild(elem)
