@@ -31,14 +31,14 @@ const template = [
     ]
   },
   {
-    role: 'window',
+    label: 'Window',
     submenu: [
       {role: 'minimize'},
       {role: 'close'}
     ]
   },
   {
-    role: 'help',
+    label: 'Help',
     submenu: [
       {
         label: 'Learn More',
@@ -47,3 +47,22 @@ const template = [
     ]
   }
 ]
+
+const menusElem = document.querySelector('.menus')
+
+for (const menuInfo of template) {
+  const elem = document.createElement('div')
+  elem.className = 'menu'
+  elem.innerText = menuInfo.label
+  elem.addEventListener('click', () => {
+    const rect = elem.getBoundingClientRect()
+    const x = Math.round(rect.left)
+    const y = Math.round(rect.bottom)
+    const menu = Menu.buildFromTemplate(menuInfo.submenu)
+    menu.popup(remote.getCurrentWindow(), {
+      x, y,
+      async: true,
+    })
+  })
+  menusElem.appendChild(elem)
+}
