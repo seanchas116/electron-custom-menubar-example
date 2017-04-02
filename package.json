@@ -1,0 +1,20 @@
+{
+  "name": "electron-custom-menubar-example",
+  "version": "1.0.0",
+  "description": "Custom menubar using Menu.popup and frameless window",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seanchas116/electron-custom-menubar-example.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seanchas116/electron-custom-menubar-example/issues"
+  },
+  "homepage": "https://github.com/seanchas116/electron-custom-menubar-example#readme",
+  "private": true
+}
