@@ -49,24 +49,76 @@ const template = [
 ]
 
 const menusElem = document.querySelector('.menus')
+const menuElems = []
 
-for (const menuInfo of template) {
+let hasCurrentMenu = false
+let currentMenuIndex = 0
+let currentMenu
+
+const updateMenuStyle = () => {
+  for (const [i, elem] of menuElems.entries()) {
+    if (hasCurrentMenu && i == currentMenuIndex) {
+      elem.className = 'menu menu-current'
+    } else {
+      elem.className = 'menu'
+    }
+  }
+}
+
+const showMenu = (index, x, y) => {
+  if (currentMenu) {
+    currentMenu.closePopup()
+    currentMenu = undefined
+  }
+  const menu = Menu.buildFromTemplate(template[index].submenu)
+  menu.popup(remote.getCurrentWindow(), {
+    x, y,
+    async: true,
+    forDrop: true,
+  })
+  hasCurrentMenu = true
+  currentMenuIndex = index
+  currentMenu = menu
+  updateMenuStyle()
+}
+
+const closeMenu = () => {
+  if (currentMenu) {
+    currentMenu.closePopup()
+    currentMenu = undefined
+  }
+  hasCurrentMenu = false
+  updateMenuStyle()
+}
+
+for (const [i, menuInfo] of template.entries()) {
   const elem = document.createElement('div')
   elem.className = 'menu'
   elem.innerText = menuInfo.label
-  elem.addEventListener('click', () => {
+  const show = () => {
     const rect = elem.getBoundingClientRect()
     const x = Math.round(rect.left)
     const y = Math.round(rect.bottom)
-    const menu = Menu.buildFromTemplate(menuInfo.submenu)
-    menu.popup(remote.getCurrentWindow(), {
-      x, y,
-      async: true,
-      forDrop: true,
-    })
+    showMenu(i, x, y)
+  }
+  elem.addEventListener('click', e => {
+    if (hasCurrentMenu) {
+      closeMenu()
+    } else {
+      show()
+    }
+    e.stopPropagation()
+  })
+  elem.addEventListener('mouseenter', () => {
+    if (hasCurrentMenu && i != currentMenuIndex) {
+      show()
+    }
   })
   menusElem.appendChild(elem)
+  menuElems.push(elem)
 }
+window.addEventListener('click', closeMenu)
+
 document.querySelector('.button-minimize').addEventListener('click', () => {
   remote.getCurrentWindow().minimize()
 })
