@@ -3,14 +3,21 @@
   <head>
     <title>Custom Menubar in Electron</title>
     <link rel='stylesheet' href='style.css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
   <body>
     <div class='menubar'>
       <div class='menus'></div>
       <div class='buttons'>
-        <div class='button' id='minimize'></div>
-        <div class='button' id='maximize'></div>
-        <div class='button' id='close'></div>
+        <div class='button button-minimize'>
+          <i class="fa fa-window-minimize" aria-hidden="true"></i>
+        </div>
+        <div class='button button-maximize'>
+          <i class="fa fa-window-maximize" aria-hidden="true"></i>
+        </div>
+        <div class='button button-close'>
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
       </div>
     </div>
     <script src="renderer.js"></script>

@@ -66,3 +66,17 @@ for (const menuInfo of template) {
   })
   menusElem.appendChild(elem)
 }
+document.querySelector('.button-minimize').addEventListener('click', () => {
+  remote.getCurrentWindow().minimize()
+})
+document.querySelector('.button-maximize').addEventListener('click', () => {
+  const win = remote.getCurrentWindow()
+  if (win.isMaximized()) {
+    win.unmaximize()
+  } else {
+    win.maximize()
+  }
+})
+document.querySelector('.button-close').addEventListener('click', () => {
+  remote.getCurrentWindow().close()
+})
